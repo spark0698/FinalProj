@@ -1,9 +1,9 @@
-import sys, os, time
+import sys, os
 import contextlib
+from math import *
 with contextlib.redirect_stdout(None):
     import pygame
     from pygame.locals import *
-from math import *
 
 pygame.init()
 myfont = pygame.font.SysFont('monospace', 90)
@@ -47,7 +47,7 @@ def create_level(file):
     mapWidth = len(file[0])
     map = []
 
-    for x,  y in enumerate(file):
+    for x, y in enumerate(file):
         map.append([])
         for z, w in enumerate(file[x]):
             if w == 0:
@@ -73,11 +73,12 @@ def main():
                 if event.key == K_ESCAPE:
                     pygame.quit()
                     sys.exit()
-                    return
             if event.type == QUIT:
                 pygame.quit()
                 sys.exit()
-                return
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if ammo >= 1:
+                    ammo -= 1
 
         pygame.draw.rect(SCREEN, (127, 217, 255), (0, 0, 1360, (768 - map_size) / 2))
         pygame.draw.rect(SCREEN, (0, 128, 0), (0, (768) / 2, 1360, (768) / 2))
@@ -230,10 +231,6 @@ def main():
 
         if keys[K_r]:
             ammo = 30
-
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if ammo >= 1:
-                ammo -= 1
 
         # Look left and right
         # Mouse input
